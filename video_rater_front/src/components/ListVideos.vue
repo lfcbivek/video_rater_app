@@ -1,10 +1,14 @@
 <template>
   <div class="">
     <div class="row">
-
+      <div class="col-md-12 mb-5" v-if="createNew">
+        <CreateVideo />
+      </div>
       <div class="col-md-5 text-center nicefont">
         <h4> Welcome to Video Rater</h4>
-
+        <form @submit="createdNew()">
+          <input type="submit" value="Create new video" class="btn-sm btn-primary mb-3 btn-center">
+        </form>
 
 
         <p v-bind:key="video.id" v-for="video in videos">
@@ -33,11 +37,7 @@
 
     </div>
 
-    <div class="row">
-      <div class="col-md-6">
-        <CreateVideo />
-      </div>
-    </div>
+
 
   </div>
 </template>
@@ -58,6 +58,7 @@ export default {
     return{
       videos: [],
       videodetail : Object,
+      createNew: "",
     }
 
   },
@@ -72,10 +73,15 @@ export default {
     videoDetail(video){
       this.videodetail = video
       console.log(this.videodetail)
+    },
+
+    createdNew(){
+      this.createNew = !this.createNew;
     }
   },
   created(){
-    this.getVideos()
+    this.getVideos();
+    this.createNew= false;
   }
 }
 </script>
@@ -90,7 +96,7 @@ export default {
   }
 
   .detail:hover{
-    
+
     transform: scale(1.5);
 
   }
