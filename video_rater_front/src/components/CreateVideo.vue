@@ -3,7 +3,7 @@
     <div class = "col-md-6">
         <div class= "card">
           <div class="card-body">
-            <form id="createForm" @submit.prevent = "createVideo">
+            <form id="createForm" @submit.prevent = "createVideo" >
               <p>
                 <label for="title">Title </label>
                 <input type="text" name="title" id="title" v-model="title">
@@ -45,7 +45,7 @@
 
               </p>
               <p>
-                <input type="submit" value="submit">
+                <input type="submit" value="submit" @click="$emit('created')">
               </p>
 
             </form>

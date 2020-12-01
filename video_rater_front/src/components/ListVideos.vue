@@ -2,7 +2,7 @@
   <div class="">
     <div class="row">
       <div class="col-md-12 mb-5" v-if="createNew">
-        <CreateVideo />
+        <CreateVideo v-on:created="updatedVideos"/>
       </div>
       <div class="col-md-5 text-center nicefont">
         <h4> Welcome to Video Rater</h4>
@@ -28,7 +28,7 @@
       </div>
 
       <div class="col-md-6">
-        <VideoDetails v-bind:videodetail="videodetail" />
+        <VideoDetails v-bind:videodetail="videodetail" v-on:updated="updatedVideos" v-on:deleted ="updatedVideos" />
       </div>
 
 
@@ -77,6 +77,17 @@ export default {
 
     createdNew(){
       this.createNew = !this.createNew;
+    },
+    updatedVideos(){
+      console.log("Üpdated videos")
+      this.timer = setTimeout ( () => {
+        axios.get("http://127.0.0.1:8000/api/videos/")
+      .then(res=> (this.videos = res.data))
+      .catch(err => console.log(err))
+
+
+      },600);
+      
     }
   },
   created(){

@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from rest_framework import viewsets
+from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import action
@@ -20,10 +20,12 @@ class VideoViewSet(viewsets.ModelViewSet):
     @action(methods = ['POST'], detail = True)
     def rate_video(self,request,pk):
         if 'stars' in request.data:
+            
             video = Video.objects.get(id=pk)
             stars = request.data['stars']
             comments = request.data['comments']
-            user = request.username
+            user = request.user
+            print("User is ",user)
             try:
                 rating = Rating.objects.get(user=user.id,video = video.id)
                 rating.stars = stars

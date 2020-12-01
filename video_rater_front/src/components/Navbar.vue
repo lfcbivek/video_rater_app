@@ -7,7 +7,17 @@
       <b-nav-form @submit.prevent="login" v-if="token==null">
         <b-form-input class="mr-sm-2" placeholder="Username" v-model="username"></b-form-input>
         <b-form-input class="mr-sm-2" type="password" placeholder="Password" v-model="password"></b-form-input>
-        <b-button variant="outline-success" class="my-2 my-sm-0" type="submit">Search</b-button>
+        <b-button variant="outline-success" class="my-2 my-sm-0" type="submit">Log In</b-button>
+      </b-nav-form>
+
+      <b-nav-form @submit.prevent="logout" v-if="token !== null">
+        <b-button variant="outline-success" class="my-2 my-sm-0" type="submit">Log Out</b-button>
+
+      </b-nav-form>
+
+      <b-nav-form @submit.prevent="register" v-if="token == null">
+        <b-button :to="{name: 'register'}" variant="outline-success" class="my-2 my-sm-0" type="submit">Register</b-button>
+
       </b-nav-form>
     </b-navbar-nav>
   </b-navbar>
@@ -45,6 +55,15 @@ export default {
         console.log(err);
         localStorage.removeItem('user-token')
       })
+    },
+
+    logout(){
+      localStorage.removeItem('user-token');
+      this.token = null
+      
+    },
+    register(){
+      console.log("register")
     }
   }
 }
